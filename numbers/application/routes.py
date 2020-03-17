@@ -8,4 +8,4 @@ import random
 @app.route('/number', methods=['POST'])
 def post_numbers():
 	numbergen = random.randint(0000,9999)
-        return numbergen
+        return numbergen 
