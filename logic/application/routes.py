@@ -8,6 +8,9 @@ import random
 @app.route('/logic', methods=['GET', 'POST'])
 def post_numbers():
     #accountNumber = requests.get('http://51.132.128.111:5000/number') + requests.get('http://51.132.128.111:5000/letter')
-    api = 'http://51.132.128.111:5000/number'
-    response = requests.get(api + '/get/json')
-    return 'Whole repsonse: ' + str(response.json())
+    api = 'http://51.132.128.111:5003/number'
+    api2 = 'http://51.132.128.111:5002/letter'
+    response = requests.get(api)
+    response1 = requests.get(api2)
+    accountNumber = str(response.text) + str(response1.text)
+    return accountNumber

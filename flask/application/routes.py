@@ -6,5 +6,6 @@ import random
 
 @app.route('/home', methods=['GET'])
 def post_numbers():
-        response = requests.get(api + '')
-	return render_template('home.html', title='Home')
+    api3 = 'http://51.132.128.111:5001/logic'
+    response3 = requests.get(api3)
+    return render_template('home.html', title='Home')
