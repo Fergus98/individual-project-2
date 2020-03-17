@@ -1,6 +1,5 @@
 from flask import Flask, request
 from application import app
-import requests
 import random
 
 
