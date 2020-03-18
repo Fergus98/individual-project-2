@@ -1,11 +1,12 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from application import app
 import random
-
+import requests
 
 
 @app.route('/home', methods=['GET'])
 def post_numbers():
-    api3 = 'http://51.132.128.111:5001/logic'
+    api3 = 'http://51.104.223.47:5001/logic'
     response3 = requests.get(api3)
-    return render_template('home.html', title='Home')
+    response4 = response3.text
+    return render_template('home.html', title='Home', response=response4)
