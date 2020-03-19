@@ -1,0 +1,13 @@
+[jenkins]
+
+[swarmmaster]
+
+[nginx]
+
+[jenkins:vars]
+
+[swarmmaster:vars]
+
+[nginx:vars]
+
+
