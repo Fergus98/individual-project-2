@@ -2,7 +2,7 @@ version: '3.7'
 services:
   flask:
     image: fergus98/flask
-    build: .
+    build: ./flask/
     ports:
     - target: 5000
       published: 5000
@@ -10,7 +10,7 @@ services:
       replicas: 4
   numbers:
     image: fergus98/numbers
-    build: .
+    build: ./numbers/
     ports:
     - target: 5003
       published: 5003
