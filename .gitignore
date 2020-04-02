@@ -1,0 +1,4 @@
+/venv/
+/letters/application/__pycache__/
+/logic/application/__pycache__/
+/numbers/application/__pycache__/

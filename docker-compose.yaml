@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  flask:
+    image: fergus98/flask
+    build: ./flask/
+    ports:
+    - target: 5000
+      published: 5000
+    deploy:
+      replicas: 4
+  numbers:
+    image: fergus98/numbers
+    build: ./numbers/
+    ports:
+    - target: 5003
+      published: 5003
+    deploy:
+      replicas: 4
+  letters:
+    image: fergus98/letters
+    build: .
+    ports:
+    - target: 5002
+      published: 5002
+    deploy: 
+      replicas: 4
+  logic:
+    image: fergus98/logic
+    build: .
+    ports:
+    - target: 5001
+      published: 5001
+    deploy:
+      replicas: 4
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+    volumes:
+    - type: bind
+      source: ./nginx.conf
+      target: /etc/nginx/nginx.conf
