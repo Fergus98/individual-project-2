@@ -1,0 +1,159 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: "Generate SSH keys"
+      openssh_keypair:
+        path: ~/.ssh/ansible_id_rsa
+- hosts: all
+  become: true
+  tasks:
+  - name: "Update"
+    apt:
+      name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+      - python-pip
+      - python3-pip
+      update_cache: true
+  - name: "Install python docker and docker-compose modules"
+    pip:
+      name:
+      - docker
+      - docker-compose
+      - jsondiff
+  - name: "Get keys"
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+  - name: "Make repository"
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      state: present 
+  - name: "Install Docker Engine"
+    apt:
+      name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      state: latest
+      update_cache: true
+  - name: "Install docker-compose"
+    get_url:
+      url: https://github.com/docker/compose/releases/download/1.25.0/docker-compose-Linux-x86_64
+      dest: /usr/local/bin/docker-compose
+  - name: "Make docker-compose executable"
+    file:
+      path: /usr/local/bin/docker-compose
+      mode: +x
+  - name: "Add Jenkins user in docker group"
+    user:
+      name: jenkins
+      shell: /bin/bash
+      group: docker
+      state: present
+  - name: "Copy .env to Jenkins home directory"
+    copy:
+      src: ./resources/.env
+      dest: /home/jenkins/
+- hosts: jenkins
+  become: true
+  tasks:
+  - name: "Create Jenkins user"
+    user:
+      name: jenkins
+      shell: /bin/bash
+      group: docker
+      state: present
+  - name: "Install Pytest"
+    pip:
+      name:
+      - pytest
+      - pytest-cov
+  - name: "Install Java"
+    apt:
+      name: openjdk-8-jdk
+      state: latest
+      update_cache: true
+  - name: "Import GPG keys"
+    apt_key:
+      url: https://pkg.jenkins.io/debian/jenkins.io.key
+      state: present
+  - name: "Import Jenkins repository"
+    apt_repository:
+      repo: deb http://pkg.jenkins.io/debian-stable binary/
+      state: present
+  - name: "Install Jenkins"
+    apt:
+      name: jenkins
+      state: latest
+      update_cache: true
+  - name: "Run Jenkins"
+    service:
+      name: jenkins
+      state: started
+  - name: "Initial admin password: "
+    command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: initpassword
+  - debug: 
+      msg: "{{ initpassword.stdout }}"
+- hosts: jenkins
+  become: true
+  tasks:  
+  - name: "Create .ssh folder on Jenkins VM"
+    file: 
+      path: /home/jenkins/.ssh/
+      mode: "0700"
+      state: directory
+      group: jenkins
+      owner: jenkins
+  - name: "Copy private key to Jenkins"
+    copy:
+      src: ~/.ssh/ansible_id_rsa
+      dest: /home/jenkins/.ssh/id_rsa
+      owner: jenkins
+      group: jenkins
+      mode: u=rw,g=,o=
+- hosts: manager-node 
+  become: true
+  tasks:
+  - name: "Create .ssh folder on Swarm VM"
+    file: 
+      path: /home/jenkins/.ssh/
+      mode: "0700"
+      state: directory
+      group: docker
+      owner: jenkins
+  - name: "Copy public key to Swarm VM"
+    copy:
+      src: ~/.ssh/ansible_id_rsa.pub
+      dest: /home/jenkins/.ssh/authorized_keys
+      owner: jenkins
+      group: docker
+      mode: u=rw,g=,o=
+- hosts: manager-node 
+  become: true 
+  tasks:
+  - name: "Make node manager"
+    docker_swarm:
+      state: present
+  - name: "Copy nginx.conf file"
+    copy:
+      src: ./resources/nginx.conf
+      dest: /home/jenkins/nginx/
+- hosts: jenkins 
+  become: true
+  tasks:
+  - name: "Run registry container"
+    docker_container:
+      name: registry
+      image: registry
+      env:
+        REGISTRY_HTTP_ADDR: "0.0.0.0:5001"
+      exposed_ports:
+      - 5000
+      ports:
+      - "5001:5001"
+

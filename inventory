@@ -1,13 +1,26 @@
+[all]
+51.105.55.239
+51.140.10.178
+51.105.52.70
+
+[all:vars]
+ansible_user=fergus
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/ansible_id_rsa
+
 [jenkins]
-
-[swarmmaster]
-
-[nginx]
+51.140.10.178
 
 [jenkins:vars]
+ansible_user=jenkins
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/ansible_id_rsa
 
-[swarmmaster:vars]
+[manager-node]
+51.105.55.239
+51.105.52.70
 
-[nginx:vars]
-
-
+[manager-node:vars]
+ansible_user=fergus
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/ansible_id_rsa
