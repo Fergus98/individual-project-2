@@ -54,10 +54,6 @@
       shell: /bin/bash
       group: docker
       state: present
-  - name: "Copy .env to Jenkins home directory"
-    copy:
-      src: ./resources/.env
-      dest: /home/jenkins/
 - hosts: jenkins
   become: true
   tasks:
@@ -141,7 +137,7 @@
       state: present
   - name: "Copy nginx.conf file"
     copy:
-      src: ./resources/nginx.conf
+      src: ./nginx.conf
       dest: /home/jenkins/nginx/
 - hosts: jenkins 
   become: true
