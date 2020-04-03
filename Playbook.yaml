@@ -144,28 +144,20 @@
         ports:
           - "5000:5000"
 
-- name: Docker Swarm deploy
-  hosts: swarmmaster
+- hosts: swarm-master
   become: true
   tasks:
-    - name: Git clone project
-      git:
-        repo: 'https://github.com/Fergus98/individual-project-2.git'
-        dest: /home/jenkins/IndividualProject
-    - name: Init a new swarm
-      docker_swarm:
-        state: present
-    - name: Build docker images
-      docker_compose:
-        project_src: /home/jenkins/IndividualProject
-        build: yes
-      remote_user: jenkins
-    - name: Deploy stack from a compose file
-      docker_stack:
-        state: present
-        name: individualproject
-        compose:
-          - /home/jenkins/IndividualProject/docker-compose.yaml
+  - name: "python pip"
+    apt:
+      name: python-pip
+      state: present
+      update_cache: true
+  - name: "docker sdk"
+    pip:
+      name: docker
+  - name: "initialise swarm"
+    docker_swarm:
+      state: present
 
 - name: Install docker public ssh key
   hosts: swarmmaster
