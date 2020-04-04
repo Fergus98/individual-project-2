@@ -4,9 +4,7 @@ pipeline {
         stage('Deploy') {
             steps {
 		sh """
-	            vmuser='fergus@52.151.118.99'
-                    vmpass='Password1...'
-                    sshpass -p ${vmpass} ssh -o StrictHostKeyChecking=no ${vmuser}<<eof
+	            ssh -o "StrictHostKeyChecking=no" fergus@51.140.122.129  << EOF
                     
                     cd individual-project-2
                     docker-compose up -d
