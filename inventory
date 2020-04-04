@@ -1,7 +1,5 @@
-
-
 [jenkins]
-51.140.70.56
+51.145.49.135
 
 [jenkins:vars]
 ansible_user=fergus
@@ -9,9 +7,25 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 
 [swarmmaster]
-51.140.122.129
+51.145.13.187
 
 [swarmmaster:vars]
+ansible_user=fergus
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[swarmworker]
+51.140.62.89
+
+[swarmworker:vars]
+ansible_user=fergus
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[NGINX]
+51.140.138.37
+
+[NGINX:vars]
 ansible_user=fergus
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_private_key_file=~/.ssh/id_rsa

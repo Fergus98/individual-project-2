@@ -144,20 +144,40 @@
         ports:
           - "5000:5000"
 
+
 - hosts: swarmmaster
   become: true
   tasks:
-  - name: "python pip"
-    apt:
-      name: python-pip
-      state: present
-      update_cache: true
-  - name: "docker sdk"
-    pip:
-      name: docker
-  - name: "initialise swarm"
-    docker_swarm:
-      state: present
+  - name: Initialize Docker Swarm
+    shell: >
+      docker swarm init
+      --advertise-addr={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:2377
+    #when: swarm_status.rc != 0
+    run_once: true
+    tags: swarm
+
+  - name: Get the Manager join-token
+    shell: docker swarm join-token --quiet manager
+    register: manager_token
+    tags: swarm
+
+  - name: Get the worker join-token
+    shell: docker swarm join-token --quiet worker
+    register: worker_token
+    tags: swarm
+
+  #- name: Add Managers to the Swarm
+   # shell: "docker swarm join --token {{ hostvars['51.145.13.187']['manager_token']['stdout'] }} {{ hostvars['51.145.13.187']['ansible_default_ipv4']['address'] }}:2377"
+    #when: swarm_status.rc != 0
+    #tags: swarm
+    
+- name: Add Worker
+  hosts: swarmworker
+  become: true
+  tasks:
+  - name: Add Workers to the Swarm
+    shell: "docker swarm join --token {{ hostvars['51.145.13.187']['worker_token']['stdout'] }} {{ hostvars['51.145.13.187']['ansible_default_ipv4']['address'] }}:2377"
+    tags: swarm
 
 - name: Install docker public ssh key
   hosts: swarmmaster
