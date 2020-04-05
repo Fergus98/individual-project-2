@@ -8,6 +8,8 @@ services:
       published: 5000
     deploy:
       replicas: 4
+    networks:
+    - my-network
   numbers:
     image: fergus98/numbers
     build: ./numbers/
@@ -16,22 +18,28 @@ services:
       published: 5003
     deploy:
       replicas: 4
+    networks:
+    - my-network
   letters:
     image: fergus98/letters
-    build: .
+    build: ./letters/
     ports:
     - target: 5002
       published: 5002
     deploy: 
       replicas: 4
+    networks:
+    - my-network
   logic:
     image: fergus98/logic
-    build: .
+    build: ./logic/
     ports:
     - target: 5001
       published: 5001
     deploy:
       replicas: 4
+    networks:
+    - my-network
   nginx:
     image: nginx:latest
     ports:
@@ -41,3 +49,8 @@ services:
     - type: bind
       source: ./nginx.conf
       target: /etc/nginx/nginx.conf
+    networks:
+    - my-network
+
+networks:
+  my-network:
