@@ -6,6 +6,7 @@ This project saw the development of a basic account and prize generator. It is m
 
 # Application Diagram
 
+This Diagram shows what the final product will look like. 
 <img width="298" alt="APPDIAGRAM" src="https://user-images.githubusercontent.com/9552989/78503400-38b15b80-775e-11ea-9071-7e9f2f0e218a.PNG">
 
 
