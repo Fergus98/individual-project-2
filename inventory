@@ -1,5 +1,5 @@
 [jenkins]
-51.105.36.206
+51.105.36.146
 
 [jenkins:vars]
 ansible_user=fergus
@@ -7,7 +7,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 
 [swarmmaster]
-51.104.17.65
+51.104.226.110
 
 [swarmmaster:vars]
 ansible_user=fergus
