@@ -4,7 +4,7 @@ pipeline {
         stage('Deploy') {
             steps {
 		sh """
-	            ssh -o "StrictHostKeyChecking=no" jenkins@51.140.122.129  << EOF
+	            ssh -o "StrictHostKeyChecking=no" fergus@51.104.17.65  << EOF
                     
                     cd individual-project-2
                     docker-compose up -d

@@ -176,7 +176,7 @@
   become: true
   tasks:
   - name: Add Workers to the Swarm
-    shell: "docker swarm join --token {{ hostvars['51.145.13.187']['worker_token']['stdout'] }} {{ hostvars['51.145.13.187']['ansible_default_ipv4']['address'] }}:2377"
+    shell: "docker swarm join --token {{ hostvars['51.104.17.65']['worker_token']['stdout'] }} {{ hostvars['51.104.17.65']['ansible_default_ipv4']['address'] }}:2377"
     tags: swarm
 
 - name: Install docker public ssh key
