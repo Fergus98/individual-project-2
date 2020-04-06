@@ -25,11 +25,7 @@ This Diagram shows what the final product will look like.
 # Risk Assessment
 
 
-Risk
-Likelihood
-Impact
-Prevention
-Result
+<img width="752" alt="riskass" src="https://user-images.githubusercontent.com/9552989/78533158-6b039d00-77e0-11ea-9645-10b1c9c8403d.PNG">
 
 # Sprint 1 Board
 
