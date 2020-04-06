@@ -64,9 +64,22 @@ Below is a breakdown of the MoSCoW Priority I completed
 
 # Jenkins
 
-I used a Jenkinsfile to create a CI pipeline job with Jenkins. This allowed me to demonstrate 
+I used a Jenkinsfile to create a CI pipeline job with Jenkins. 
+
+<img width="387" alt="Jenkins" src="https://user-images.githubusercontent.com/9552989/78530266-3fca7f00-77db-11ea-9b39-5d656efcf136.PNG">
+
+# Docker Swarm
+
+Docker swarm allowed me to containerise and deploy the app across two VMs. A Master node and a Worker Node. Below is the output of the Swarm Stack.
+
+<img width="811" alt="SWARM" src="https://user-images.githubusercontent.com/9552989/78530388-7607fe80-77db-11ea-8410-b78b3007486e.PNG">
+
+<img width="810" alt="STACKDEPLOY" src="https://user-images.githubusercontent.com/9552989/78530405-7accb280-77db-11ea-97ad-88257042fef8.PNG">
 
 # Ansible
+
+I used ansible in order to automate the setting up of the environment for the app to be running on. 
+
 
 
 
