@@ -87,20 +87,24 @@ I used ansible in order to automate the setting up of the environment for the ap
 # User Stories 
 
 - As a User I would like to be able to generate account numbers
+- As a User I would like to be able to access my account.
 - As a Developer I would like to easily follow and edit code
+- As a product owner I would like for any changes to be rolled out automatically with ease
 
 
 # CI Pipeline
 
+![CI Pipeline (2)](https://user-images.githubusercontent.com/9552989/78531293-14e12a80-77dd-11ea-96ff-8df58e0b271f.jpg)
+
 # Tests
 
-For this project I did not create any pytests. 
+For this project I did not create any pytests due to the lack of complexity of the final system. During development however I did make use of Postman in order to test each service for responses while developing each section.
 
 # Discussion
 
 During this project I encountered a variety of problems that changed the final product. Firstly I did not expect the configuration of the Playbook.yaml to take as much time as it did. This cost me on the functionality of the app.
 
-Working on this project in the future I would definitely create tests to work on the system
+Working on this project in the future I would definitely create pytest's in order to test functionality of the system. Hopefully I will be able to add more end user functionality to the system to make it necessary.
 
 The project did not have an ERD as there was no database. Taking the project forward I would work on creating a database service for the user to store accounts in and also generate a prize that is stored with their account number.
 Discuss challenges
@@ -109,3 +113,5 @@ Discuss planning
 
 
 # Conclusion
+
+Overall I would consider this project a success as it proves a useful conecpt of a working CI pipeline with fucntioning Version Control System and rolling updates. The application itself is not very useful, and the lack of tests is a draw back. However moving forward I would be working to develop these two further to create a better application. 
