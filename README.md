@@ -75,6 +75,12 @@ Docker swarm allowed me to containerise and deploy the app across two VMs. A Mas
 # Ansible
 
 I used ansible in order to automate the setting up of the environment for the app to be running on. 
+It will configure 3 fresh VMs to have:
+- Jenkins setup
+- A docker manager node with a joined worker node
+- Dependencies for environements
+
+Future strecth would be to get a fourth VM with NGINX setup on it. 
 
 
 
