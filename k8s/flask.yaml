@@ -1,4 +1,4 @@
-piVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask
@@ -17,7 +17,7 @@ spec:
       - name: flask
         image: fergus98/flask:latest
         ports:
-        - name: flaskPort
+        - name: flask-port
           containerPort: 5000
 
 

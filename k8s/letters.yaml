@@ -17,7 +17,7 @@ spec:
       - name: letters
         image: fergus98/letters:latest
         ports:
-        - name: lettersPort
+        - name: letters-port
           containerPort: 5002
         
 

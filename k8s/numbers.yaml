@@ -1,4 +1,4 @@
-piVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: numbers
@@ -17,7 +17,7 @@ spec:
       - name: numbers
         image: fergus98/numbers:latest
         ports:
-        - name: numbersPort
+        - name: numbers-port
           containerPort: 5003
 
 
