@@ -1,0 +1,35 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logic
+  labels:
+    app: logic
+spec:
+  selector:
+    matchLabels:
+      app: logic
+  template:
+    metadata:
+      labels:
+        app: logic
+    spec:
+      containers:
+      - name: logic
+        image: fergus98/logic:latest
+        ports:
+        - name: logicPort
+          containerPort: 5001
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: logic
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5001
+  selector:
+    app: logic

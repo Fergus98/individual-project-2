@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: letters 
+  labels:
+    app: letters
+spec:
+  selector:
+    matchLabels:
+      app: letters
+  template:
+    metadata:
+      labels:
+        app: letters
+    spec:
+      containers:
+      - name: letters
+        image: fergus98/letters:latest
+        ports:
+        - name: lettersPort
+          containerPort: 5002
+        
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: letters
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5002
+  selector:
+    app: letters
+

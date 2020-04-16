@@ -1,0 +1,35 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numbers
+  labels:
+    app: numbers
+spec:
+  selector:
+    matchLabels:
+      app: numbers
+  template:
+    metadata:
+      labels:
+        app: numbers
+    spec:
+      containers:
+      - name: numbers
+        image: fergus98/numbers:latest
+        ports:
+        - name: numbersPort
+          containerPort: 5003
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: numbers
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5003
+  selector:
+    app: numbers
